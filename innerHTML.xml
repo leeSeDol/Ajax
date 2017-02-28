@@ -1,0 +1,22 @@
+<states>
+	<north>
+		<state>nnnn</state>
+		<state>nnnn</state>
+		<state>nnnn</state>
+	</north>
+	<south>
+		<state>s</state>
+		<state>s</state>
+		<state>s</state>
+	</south>
+	<east>
+		<state>e</state>
+		<state>e</state>
+		<state>e</state>
+	</east>
+	<west>
+		<state>w</state>
+		<state>w</state>
+		<state>w</state>
+	</west>
+</states>

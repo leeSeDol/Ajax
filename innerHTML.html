@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>index</title>
+</head>
+<body>
+	
+<form action="#">
+	<input type="button" value="all" onclick="stateChange('all')">
+	<br><br>
+	<input type="button" value="north" onclick="stateChange('north')">
+</form>
+
+
+<script>
+var xmlHttp;
+function createXMLHttpRequest(){
+	if(window.ActiveXObject){
+		xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}else if(window.XMLHttpRequest){
+		xmlHttp = new XMLHttpRequest();
+	}
+}
+function stateChange(requestedList){
+	createXMLHttpRequest();
+	requestType=requestedList;
+	xmlHttp.onreadystatechange=handleStateChange;
+	xmlHttp.open("GET","innerHTML.xml",true);
+	xmlHttp.send(null);
+}
+function handleStateChange(){
+	if(xmlHttp.readyState==4){
+		if(xmlHttp.status==200){
+			if(requestType=='all'){
+				allStateList();
+			}else if(requestType=='north'){
+				northStateList();
+			}
+		}
+	}
+}
+function allStateList(){
+	var xmlDoc=xmlHttp.responseXML;
+	var allStates=xmlDoc.getElementsByTagName("state");
+	outputList("the all state in document: ",allStates);
+}
+function northStateList(){
+	var xmlDoc=xmlHttp.responseXML;
+	var northNode=xmlDoc.getElementsByTagName("north")[0];
+	var northStates=northNode.getElementsByTagName("state");
+	outputList("the north state in document: ",northStates);
+}
+function outputList(title,states){
+	var out=title;
+	for(var i=0;i<states.length;i++){
+		out=out+"\n- "+states[i].childNodes[0].nodeValue;
+	}
+	alert(out);
+}
+</script>
+</body>
+</html>
